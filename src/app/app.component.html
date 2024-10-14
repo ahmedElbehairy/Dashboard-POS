@@ -1,0 +1,11 @@
+<div class="vh-100 overflow-hidden">
+  <div class="d-flex h-100" *ngIf="!_Router.url.includes('login')">
+    <div style="width: auto">
+      <app-side-menu></app-side-menu>
+    </div>
+    <div class="w-100">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <router-outlet *ngIf="_Router.url.includes('login')"></router-outlet>
+</div>

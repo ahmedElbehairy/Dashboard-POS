@@ -1,0 +1,19 @@
+<div class="p-5 h-100 overflow-heddin">
+        <app-table [ELEMENT_DATA]="Product" [titleOfButton]="titleOfButton" [nextId]="nextId" [Router]="'Edit-Product'" [TFE]="'Product'" (Delete)="deleteProduct($event)" [displayedColumn]="displayedColumns" (ManyDelete)="deleteManyProduct($event)" ></app-table>
+</div>
+
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="large"
+  color="#fff"
+  type="line-spin-fade"
+  [fullScreen]="true"
+  ><p style="color: white">Loading...</p></ngx-spinner
+>
+
+
+
+<app-snack-bar
+  [errorMessage]="errorMessage"
+  [successMessage]="successMessage"
+></app-snack-bar>

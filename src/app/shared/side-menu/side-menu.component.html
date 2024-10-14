@@ -1,0 +1,42 @@
+<div class="sidebarMenu position-relative bg-white p-4 border-r-gray-s1" [ngClass]="status ? 'darSideBar' : 'genisSideBar'">
+	
+		<div class="hamburger-menu">
+			<input type="checkbox" id="checkbox-hamburger-menu" [(ngModel)]="statusLink" (click)="clickEvent()" />
+			  <label class="label-hamburger-menu p-2 red" for="checkbox-hamburger-menu">
+			  <div class="bar"></div>
+			  <div class="bar"></div>
+			  <div class="bar"></div>
+			</label>
+		  </div>
+
+	<div class="sideBarUst text-center pt-3">
+			<i class="img-Logo-name size-logo-name img-Background-Cover cursor-click" routerLink="/Home"
+			[ngClass]="statusLink ? 'navLinkDar' : 'navLinkGenis animated fadeInRight'" ></i>
+			<span [ngClass]="!statusLink ? 'navLinkDar' : 'navLinkGenis animated fadeInRight'">name!!</span>
+	</div>
+	<div class="" style="height: calc(100% - 105px);">
+		<ul class="p-0 d-flex flex-column justify-content-around h-100">
+                <button
+				*ngFor="let item of itemOfSideMenu ; index as i"
+                [id]="i"
+                [name]="item.name"
+                class="border-0 w-100 py-3 px-4 border-F-radius-s8 m-0 d-flex align-items-center gap-3 nav-item"
+                [ngClass]=" !_Router.url.includes(item.routing)
+                    ? 'opacity-25 bg-transparent'
+                    : 'opacity-100'
+                "
+                [routerLink]="item.routing"
+                    >
+					<i class="d-flex iC-S30 img-Background-Contain {{ item.icon }}"></i>
+					<span [ngClass]="statusLink ? 'navLinkDar' : 'navLinkGenis animated fadeInRight'">{{ item.name }}</span>
+                </button>
+		</ul>
+	</div>
+
+
+	
+	
+</div>
+
+
+

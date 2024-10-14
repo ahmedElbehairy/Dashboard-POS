@@ -1,0 +1,88 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <p class="m-0 text-light-black font-Bold-s30">{{TFE}}</p>
+  <button *ngIf="titleOfButton == '+ Add Product'" class="btn px-4 bg-support1 py-2 text-white" routerLink="Add-Product" [state]="{numberOfId:nextId.toString()}">{{titleOfButton}}</button>
+  <button *ngIf="titleOfButton == 'Delete'" class="btn px-4 bg-support1 py-2 text-white" (click)="deleteManyEl()" >{{titleOfButton}}</button>
+</div>
+<section class="example-container mat-elevation-z8" tabindex="0">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    *ngIf="dataSource && displayedColumn"
+    class="mat-elevation-z8"
+  >
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? toggleAllRows() : null ; scrollToIndex()"
+                      *ngIf="ELEMENT_DATA.length > 0"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()"
+                      [aria-label]="checkboxLabel()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation() ; scrollToIndex()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)"
+                      [aria-label]="checkboxLabel(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+    <!-- Columns -->
+    <ng-container *ngFor="let item of displayedColumn" [matColumnDef]="item">
+      <th
+        class="text-center font-Bold-s22 text-Gray85"
+        mat-header-cell
+        *matHeaderCellDef >
+        {{ item | titlecase }}
+      </th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        class="text-center font-SemiBold-s20 text-break text-nowrap"
+        [ngClass]="( element[item] == element.walite ) ? 'text-main' : 'text-black' && 
+        ( element[item] == element.price ) ? 'text-main' : 'text-black'"
+      >
+      <div mat-raised-button #tooltip="matTooltip"
+      *ngIf="element[item] == element.ingredients"
+      [matTooltip]="element.ingredients"
+      matTooltipPosition="below"
+      matTooltipHideDelay="10000000"
+      aria-label="Button that displays a tooltip that hides when scrolled out of the container">
+      {{element['ingredients'] }}
+    </div>
+       <span *ngIf="element[item] == (element.walite || element.price)">{{(element.walite || element.price | currency)}}</span>
+       <span *ngIf="element[item] == element.name">{{(element.name | titlecase)}}</span>
+       <span *ngIf="element[item] !==  (element.walite || element.price)
+        && element[item] !== element.ingredients && 
+        element[item] !== element.name ">{{(element[item])}}</span>
+      </td>
+    </ng-container>
+    
+    <!-- Action Column -->
+    <ng-container matColumnDef="Action">
+      <th mat-header-cell *matHeaderCellDef class="text-center font-Bold-s22 text-Gray85"> Action </th>
+      <td mat-cell *matCellDef="let element" class="text-center font-SemiBold-s20 text-break text-nowrap">
+        <div class="d-flex align-items-center gap-3">
+          <p class="m-0 cursor-click d-flex gap-2 align-items-center"
+          [routerLink]="Router + '/' + element.id">
+          <i class="IC-edit d-flex img-Background-Cover iC-S20"></i>
+          Edit
+        </p>
+        <p class="m-0 cursor-click d-flex gap-2 align-items-center"
+          data-bs-toggle="modal" data-bs-target="#alertPopup" (click)="deleteEl(element.id)">
+          <i class="IC-delete d-flex img-Background-Cover iC-S16-20"></i>
+          Delete
+        </p>
+      </div>
+    </td>
+  </ng-container>
+  
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+  mat-row
+  *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+</section>
+
+<app-alert-popup [TFE]="TFE" [id]="deleteId" (yes)="Delete.emit($event)"></app-alert-popup>

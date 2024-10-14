@@ -1,0 +1,121 @@
+.sidebarMenu{
+  color: #fff;
+  width: auto;
+  height: 100vh;
+  margin-top: 50px !important ;
+  padding-top: 0px !important;
+}
+.genisSideBar{
+  width: 300px;
+  transition: 1.50s;
+}
+.darSideBar{
+  width: 150px;
+  transition: 1.50s;
+}
+
+// .logo{
+// display: inline-block;
+// font-weight: bold;
+// font-size: 16px;
+// color: #fff;
+// border: 2px solid #fff;
+// border-radius: 4px;
+// line-height: normal;
+// padding: 4px 8px;
+// }
+.userFoto{
+display: inline-flex;
+justify-content: center;
+align-items: center;
+font-weight: bold;
+color: #088afe;
+background-color: #fff;
+line-height: normal;
+}
+
+.userFotoGenis{
+  width: 60px;
+  height: 60px;
+  border-radius: 38px;
+  font-size: 20px;
+  transition: .40s;
+}
+.userFotoDar{
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  font-size: 16px;
+  transition: .40s;
+}
+
+.userNameGenis{
+  display: block;
+}
+.userNameDar{
+  display: none;
+}
+
+.navLinkGenis{
+  display: inline-block;
+  visibility: visible;
+}
+.navLinkDar{
+  display: none;
+  visibility: hidden;
+}
+
+.darSideBarAlt{
+  width: 60px;
+}
+
+
+// +++++++++++++++++++
+.label-hamburger-menu {
+  position: absolute;
+  top: -20px;
+  right: -38px;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: 0.5s ease;
+  border-radius: 8px;
+  border: 1px solid #000;
+}
+
+.label-hamburger-menu .bar {
+  width: 20px;
+  height: 2px;
+  background: #000;
+  border-radius: 1px;
+  transition: 0.4s ease;
+}
+
+.label-hamburger-menu .bar:not(:first-child) {
+  margin-top: 5px;
+}
+
+#checkbox-hamburger-menu {
+  display: none;
+}
+
+
+#checkbox-hamburger-menu:checked+.label-hamburger-menu {
+  transform: translate(-50%, -50%) rotateY(180deg);
+}
+
+#checkbox-hamburger-menu:checked+.label-hamburger-menu .bar {
+  width: 20px;
+  transform: rotateY(180deg) rotateX(360deg);
+}
+
+#checkbox-hamburger-menu:checked+.label-hamburger-menu .bar:first-child {
+  transform: translateY(8px) rotate(-45deg);
+}
+
+#checkbox-hamburger-menu:checked+.label-hamburger-menu .bar:nth-child(2) {
+  opacity: 0;
+}
+
+#checkbox-hamburger-menu:checked+.label-hamburger-menu .bar:nth-child(3) {
+  transform: translateY(-6px) rotate(45deg);
+}

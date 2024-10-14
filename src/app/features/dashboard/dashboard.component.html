@@ -1,0 +1,156 @@
+<div class="container p-5">
+  <div class="row justify-content-between w-100 px-0">
+    <div class="divShad p-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <p class="m-0 font-Bold-s26 text-black">Total Income</p>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          (click)="menuId('Income')"
+          class="d-flex justify-content-center align-items-center"
+          aria-label="Example icon-button with a menu"
+        >
+          <i class="IC-dropdown iC-S4-20 d-flex img-Background-Cover"></i>
+        </button>
+      </div>
+      <div
+        class="position-relative d-flex justify-content-center align-items-center"
+        style="height: 350px"
+      >
+        <ngx-charts-pie-chart
+          *ngIf="Runsingle"
+          class="d-flex justify-content-center align-items-center position-absolute"
+          style="top: -5px"
+          [view]="[350, 350]"
+          [scheme]="colorScheme"
+          [results]="single"
+          [legend]="true"
+          [legendTitle]="''"
+          [legendPosition]="legendPosition"
+          [explodeSlices]="false"
+          [labels]="true"
+          [doughnut]="true"
+          [gradient]="gradient"
+        ></ngx-charts-pie-chart>
+        <p class="m-0 font-Bold-s16 position-absolute">
+          {{ totle | currency }}
+        </p>
+      </div>
+    </div>
+    <div class="divShad p-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <p class="m-0 font-Bold-s26 text-black">Monthly Goal</p>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          (click)="menuId('Goal')"
+          class="d-flex justify-content-center align-items-center"
+          aria-label="Example icon-button with a menu"
+        >
+          <i class="IC-dropdown iC-S4-20 d-flex img-Background-Cover"></i>
+        </button>
+      </div>
+      <mat-form-field>
+        <mat-select [(ngModel)]="monthSelect" name="month">
+          <mat-option
+            *ngFor="let MM of Month"
+            [value]="MM"
+            (click)="getProfit(monthSelect)"
+            >{{ MM }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <div
+        class="position-relative d-flex justify-content-center align-items-center"
+        style="height: 350px"
+      >
+        <ngx-charts-area-chart
+          *ngIf="Runmulti"
+          [scheme]="colorSchemeLine"
+          [animations]="true"
+          [gradient]="gradient"
+          [results]="multi"
+          [timeline]="timeline"
+          [schemeType]="linear"
+          [xAxis]="true"
+          [yAxis]="true"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          [yAxisLabel]="'Profit this Month'"
+        >
+        </ngx-charts-area-chart>
+        <p class="m-0 font-Bold-s16 position-absolute">
+          {{ totleMulti | currency }}
+        </p>
+      </div>
+    </div>
+    <div class="divShad p-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <p class="m-0 font-Bold-s26 text-black">Total Balance</p>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          (click)="menuId('Balance')"
+          class="d-flex justify-content-center align-items-center"
+          aria-label="Example icon-button with a menu"
+        >
+          <i class="IC-dropdown iC-S4-20 d-flex img-Background-Cover"></i>
+        </button>
+      </div>
+      <p *ngIf="balance" class="m-0 text-center my-5 font-Bold-s40">
+        {{ balance.totalIncome + balance.totalExpense | currency }}
+      </p>
+      <div *ngIf="balance" class="d-flex flex-column gap-4">
+        <div class="d-flex align-items-center gap-3">
+          <i class="d-flex IC-walite img-Background-Cover iC-S60"></i>
+          <p
+            class="m-0 font-Bold-s18 d-flex flex-column justify-content-center"
+          >
+            Total Income
+            <span>{{ balance.totalIncome | currency }}</span>
+          </p>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <i class="d-flex IC-Charts img-Background-Cover iC-S60"></i>
+          <p
+            class="m-0 font-Bold-s18 d-flex flex-column justify-content-center"
+          >
+            Total Expense
+            <span>{{ balance.totalExpense | currency }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-between w-100 mt-5 px-0">
+    <div class="divShad" style="width: 65% !important">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [dataLabels]="chartOptions.dataLabels"
+      ></apx-chart>
+    </div>
+    <div class="divShad"></div>
+  </div>
+</div>
+
+<mat-menu #menu="matMenu" class="p-0 py-3">
+  <button mat-menu-item>
+    <span class="py-2 font-Regular-s16" (click)="ChangeCharts('Today')"
+      >Today</span
+    >
+  </button>
+  <button mat-menu-item>
+    <span class="py-2 font-Regular-s16" (click)="ChangeCharts('Week')"
+      >This Week</span
+    >
+  </button>
+  <button mat-menu-item>
+    <span class="py-2 font-Regular-s16" (click)="ChangeCharts('Month')"
+      >This Month</span
+    >
+  </button>
+</mat-menu>
